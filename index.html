@@ -1116,7 +1116,7 @@ body.modal-open > *:not(.waitlist-overlay) { filter: blur(8px); pointer-events: 
       </div>
       <div class="wl-field">
         <label for="wl-phone">Phone</label>
-        <input type="tel" id="wl-phone" name="phone" placeholder="(713) 555-0000">
+        <input type="tel" id="wl-phone" name="phone" placeholder="(713) 555-0000" oninput="formatPhone(this)">
       </div>
       <div class="wl-field">
         <label for="wl-salon">Salon or Instagram</label>
@@ -1129,6 +1129,14 @@ body.modal-open > *:not(.waitlist-overlay) { filter: blur(8px); pointer-events: 
 </div>
 
 <script>
+function formatPhone(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 10);
+  if (v.length >= 7) v = '(' + v.substring(0,3) + ') ' + v.substring(3,6) + '-' + v.substring(6);
+  else if (v.length >= 4) v = '(' + v.substring(0,3) + ') ' + v.substring(3);
+  else if (v.length >= 1) v = '(' + v;
+  input.value = v;
+}
+
 const SUPABASE_URL = 'https://azddbdhnriqagvoyooqs.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF6ZGRiZGhucmlxYWd2b3lvb3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NzY1MTYsImV4cCI6MjA4ODE1MjUxNn0.3yBQRm2HpzBE6tr1sXngSHJSrDdF-ZexpckDL_Xj_kU';
 const FORMSPREE_URL = 'https://formspree.io/f/mreolnpk';
